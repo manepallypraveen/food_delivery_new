@@ -107,7 +107,7 @@ class _HorizontalContainerListState extends State<HorizontalContainerList> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: parentHeight! * 0.4,
+                height: parentHeight! * 0.35,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.itemCount,
@@ -124,9 +124,9 @@ class _HorizontalContainerListState extends State<HorizontalContainerList> {
                             Container(
                               width: parentWidth * widget.cardWidthRatio,
                               height: _selectedIndex == index
-                                  ? 0.35 *  // TODO Praveen from selectedCardHeightRatio to
+                                  ? 0.3 *  // TODO Praveen from selectedCardHeightRatio to
                                       parentHeight!
-                                  : 0.35  *   // TODO Praveen from unSelectedCardHeightRatio to
+                                  : 0.3  *   // TODO Praveen from unSelectedCardHeightRatio to
                                       parentHeight!,
                               // decoration: BoxDecoration(
                               //   boxShadow: [

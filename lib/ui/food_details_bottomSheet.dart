@@ -62,14 +62,14 @@ class _FoodDetailsBottomSheetState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      backgroundColor: ThemeColor.white,
+                      backgroundColor: Colors.transparent, // Transparent background
                       radius: 100.0,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50.0),
+                        borderRadius: BorderRadius.circular(100.0),
                         child: Image.asset(
                           widget.list.image,
-                          height: 150,
-                          width: 150,
+                          height: 240,
+                          width: 240,
                           fit: BoxFit.fill,
                         ),
                       ),

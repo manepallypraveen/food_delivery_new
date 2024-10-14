@@ -340,7 +340,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: selectedIndex == index ? 120 : 80,
+                        height: selectedIndex == index ? 140 : 100,
                         child: Image.asset(category.image),
                       ),
                       heightSizedBox(16),
