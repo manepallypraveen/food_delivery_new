@@ -12,8 +12,8 @@ class HorizontalContainerList extends StatefulWidget {
     required this.itemCount,
     required this.itemColor,
     this.showDots = true,
-    this.cardWidthRatio = 0.6,
-    this.marginWidthRatio = 0.1,
+    this.cardWidthRatio = 0.8,
+    this.marginWidthRatio = 0.08,
     this.selectedCardHeightRatio = 0.4,
     this.unSelectedCardHeightRatio = 0.3,
   })  : assert(cardWidthRatio + marginWidthRatio >= 0.5,
@@ -67,16 +67,11 @@ class _HorizontalContainerListState extends State<HorizontalContainerList> {
   @override
   void initState() {
     _scrollController = ScrollController();
-    final double fullCardWidth =
-        widget.cardWidthRatio + widget.marginWidthRatio;
+    final double fullCardWidth = widget.cardWidthRatio + widget.marginWidthRatio;
     _scrollController!.addListener(() {
       final double offset = _scrollController!.offset;
-      double deltaReverse =
-          (((_selectedIndex + 2) * fullCardWidth) - 1) * parentWidth;
-
-      double deltaForward =
-          (((_selectedIndex - 1) * (fullCardWidth)) + widget.marginWidthRatio) *
-              parentWidth;
+      double deltaReverse = (((_selectedIndex + 2) * fullCardWidth) - 1) * parentWidth;
+      double deltaForward = (((_selectedIndex - 1) * (fullCardWidth)) + widget.marginWidthRatio) * parentWidth;
 
       if (offset > deltaReverse &&
           _scrollController!.position.userScrollDirection ==
@@ -218,7 +213,7 @@ class _HorizontalContainerListState extends State<HorizontalContainerList> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       height: parentHeight! * 0.006,
-      margin: EdgeInsets.all(parentWidth * 0.01),
+      margin: EdgeInsets.all(parentWidth * 0.02),
       // width: _selectedIndex == index ? parentWidth * 0.05 : parentWidth * 0.015,
       width: _selectedIndex == index ? parentWidth * 0.15 : parentWidth * 0.15,
       decoration: BoxDecoration(

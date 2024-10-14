@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/configs/theme_config.dart';
 import 'package:intl/intl.dart';
-
-
-
+import 'app_font.dart';
+import 'app_images.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 var currencySymbol = "₹";
 
@@ -139,4 +140,84 @@ exitApp() {
   } else if (Platform.isIOS) {
     exit(0);
   }
+}
+
+Future<void> customSnackBar(BuildContext context, String price) async {
+  snackbarEvent('24 min', '\$${price}', context);
+}
+
+snackbarEvent(time, price, BuildContext context) {
+  showSnackBarClickEvent(
+      backgroundColor: Colors.black,
+      time: time,
+      price: price,
+      duration: const Duration(seconds: 2),
+      context: context);
+}
+
+void showSnackBarClickEvent(
+    {required BuildContext context,
+    required String time,
+    required String price,
+    Color? backgroundColor,
+    Duration? duration}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: ThemeColor.black, width: 1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      elevation: 0,
+      duration: duration ?? const Duration(seconds: 3),
+      backgroundColor: backgroundColor ?? Colors.black87,
+      content: InkWell(
+        onTap: () {
+          // _cartListBottomSheet();
+        },
+        child: SizedBox(
+          height: 30,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                textAlign: TextAlign.center,
+                'Cart',
+                style: AppFont.fontStyle(
+                    fontWeight: FontWeight.w500,
+                    color: ThemeColor.white,
+                    size: 14),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    textAlign: TextAlign.center,
+                    time,
+                    style: AppFont.fontStyle(
+                        fontWeight: FontWeight.w500,
+                        color: ThemeColor.white,
+                        size: 12),
+                  ),
+                  SvgPicture.asset(
+                    AppImages.dot,
+                    color: ThemeColor.white,
+                  ),
+                  Text(
+                    textAlign: TextAlign.center,
+                    price,
+                    style: AppFont.fontStyle(
+                        fontWeight: FontWeight.w500,
+                        color: ThemeColor.white,
+                        size: 16),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

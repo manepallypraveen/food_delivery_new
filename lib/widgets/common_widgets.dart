@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'ec_button.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 Widget widthSizedBox(double width) {
   return SizedBox(
     // width: width.w,
@@ -51,7 +53,6 @@ EdgeInsetsGeometry ltrb({
     bottom ?? 0.0,
   );
 }
-
 
 showSessionDialog(BuildContext context) {
   showDialog<String>(
@@ -152,7 +153,7 @@ Widget logoutAlert(
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).pop('dialog');
                     },
-                    icon:  const Icon(
+                    icon: const Icon(
                       Icons.camera,
                       size: 10,
                     ),
@@ -188,16 +189,9 @@ Widget logoutAlert(
                       color: ThemeColor.resendColor,
                       onPressed: () {
                         PrefUtils.clearPrefs();
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const AuthenticationView(
-                        //         position: 0,
-                        //       ),
-                        //     ),
-                        //     (route) => false);
                       },
                       child: Text(
-                       " S.current.logOut",
+                        " S.current.logOut",
                         style: AppFont.fontStyle(
                             color: ThemeColor.white,
                             size: 16,
@@ -334,44 +328,6 @@ Future<bool?> exitConfirmation(BuildContext context) async {
         );
       });
 }
-//
-//
-//
-// Widget errorAlert(BuildContext context, SvgPicture image, String title) {
-//   return Dialog(
-//     backgroundColor: Colors.white,
-//     shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.all(Radius.circular(16.0))),
-//     alignment: Alignment.center,
-//     insetPadding: const EdgeInsets.all(16),
-//     child: SizedBox(
-//       width: double.infinity,
-//       child: Padding(
-//         padding: const EdgeInsets.all(15.0),
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             heightSizedBox(5),
-//             image,
-//             heightSizedBox(14),
-//             Text(
-//               title,
-//               textAlign: TextAlign.center,
-//               style: AppFont.toolbarSize(
-//                   color: ThemeColor.grey, letterSpacing: -1),
-//             ),
-//             heightSizedBox(15),
-//             ECButton(
-//               height: 48,
-//               color: ThemeColor.darkBluePrimary300,
-//               onPressed: () {
-//                 Navigator.of(context, rootNavigator: true).pop('dialog');
-//               },
-//               child: Text(
-//                 'Continue',
-//                 style: AppFont.button(color: Colors.white),
-//               ),
 
 Widget progressDialog(BuildContext context) {
   return Dialog(
@@ -433,9 +389,10 @@ Widget successProgressDialog(BuildContext context, String image, String text) {
             Text(
               text,
               style: AppFont.fontStyle(
-                  color: ThemeColor.black,
-                  size: 16,
-                  fontWeight: FontWeight.w400,),
+                color: ThemeColor.black,
+                size: 16,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             heightSizedBox(15),
           ],
@@ -459,14 +416,17 @@ void showSnackBar(
   );
 }
 
-showWarning(message, BuildContext context) {
-  showSnackBar(
-    backgroundColor: Colors.blueAccent,
-    message: message,
-    context: context,
-    duration: const Duration(seconds: 3),
-  );
+void flutterToast(String message, Color color) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }
+
 
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
@@ -482,135 +442,3 @@ Widget willPopScopeWidget(final Widget child, final Function() onWillPop) {
     child: child,
   );
 }
-
-// Future<bool?> exitConfirmation(BuildContext context) async {
-//   return await showDialog<bool>(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return WillPopScope(
-//           onWillPop: () async => false,
-//           child: Dialog(
-//             backgroundColor: Colors.white,
-//             shape: const RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.all(Radius.circular(16.0))),
-//             alignment: Alignment.center,
-//             insetPadding: const EdgeInsets.all(16),
-//             child: SizedBox(
-//               width: double.infinity,
-//               child: Padding(
-//                 padding: const EdgeInsets.all(15.0),
-//                 child: Column(
-//                   mainAxisSize: MainAxisSize.min,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     heightSizedBox(5),
-//                     SvgPicture.asset(
-//                       AppImages.exclamatory,
-//                       width: 56,
-//                     ),
-//                     Text(
-//                       'Exit App',
-//                       style: AppFont.headLine2(
-//                           color: ThemeColor.grey, letterSpacing: -1),
-//                     ),
-//                     heightSizedBox(8),
-//                     Text(
-//                       'Do you really want to exit the app?',
-//                       textAlign: TextAlign.center,
-//                       style: AppFont.body3(color: ThemeColor.lightGrey),
-//                     ),
-//                     heightSizedBox(15),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         SizedBox(
-//                           width: MediaQuery.of(context).size.width / 2 - 38.w,
-//                           child: ECButton(
-//                             height: 48,
-//                             color: ThemeColor.lightBluePrimary,
-//                             onPressed: () {
-//                               Navigator.pop(context);
-//                             },
-//                             child: Text(
-//                               'Cancel',
-//                               style: AppFont.button(
-//                                   color: ThemeColor.darkBluePrimary300),
-//                             ),
-//                           ),
-//                         ),
-//                         widthSizedBox(10),
-//                         SizedBox(
-//                           width: MediaQuery.of(context).size.width / 2 - 38.w,
-//                           child: ECButton(
-//                             height: 48,
-//                             color: ThemeColor.darkBluePrimary300,
-//                             onPressed: () {
-//                               PrefUtils.clearPrefs();
-//                               SystemNavigator.pop();
-//                               Navigator.pop(context);
-//                               // exitApp();
-//                             },
-//                             child: Text(
-//                               'Yes',
-//                               style: AppFont.button(color: Colors.white),
-//                             ),
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                     heightSizedBox(4),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         );
-//       });
-// }
-
-// Widget errorAlert(BuildContext context, SvgPicture image, String title) {
-//   return Dialog(
-//     backgroundColor: Colors.white,
-//     shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.all(Radius.circular(16.0))),
-//     alignment: Alignment.center,
-//     insetPadding: const EdgeInsets.all(16),
-//     child: SizedBox(
-//       width: double.infinity,
-//       child: Padding(
-//         padding: const EdgeInsets.all(15.0),
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             heightSizedBox(5),
-//             image,
-//             heightSizedBox(14),
-//             Text(
-//               title,
-//               textAlign: TextAlign.center,
-//               style: AppFont.toolbarSize(
-//                   color: ThemeColor.grey, letterSpacing: -1),
-//             ),
-//             heightSizedBox(15),
-//             ECButton(
-//               height: 48,
-//               color: ThemeColor.darkBluePrimary300,
-//               onPressed: () {
-//                 Navigator.of(context, rootNavigator: true).pop('dialog');
-//               },
-//               child: Text(
-//                 'Continue',
-//                 style: AppFont.button(color: Colors.white),
-//               ),
-//             ),
-//             heightSizedBox(4),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
-
-//
